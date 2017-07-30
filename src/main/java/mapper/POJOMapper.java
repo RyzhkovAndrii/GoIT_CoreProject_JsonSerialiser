@@ -3,7 +3,7 @@ package main.java.mapper;
 import main.java.JsonSerializer;
 import main.java.annotation.JsonIgnore;
 import main.java.annotation.JsonProperty;
-import main.java.writer.JsonWriter;
+import main.java.writer.IJsonWriter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -57,7 +57,7 @@ public class POJOMapper extends IJsonMapper {
         return isNotStatic && ((isPublic(field) && isNotTransient) || hasJsonProperty(field)) && hasNotJsonIgnore;
     }
 
-    public void write(Object obj, JsonWriter jsonWriter) {
+    public void write(Object obj, IJsonWriter jsonWriter) {
         jsonWriter.writeObjectBegin();
         for (Field field : fieldsList) {
             String name = hasJsonProperty(field)

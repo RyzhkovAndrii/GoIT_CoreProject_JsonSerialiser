@@ -1,7 +1,7 @@
 package main.java.mapper;
 
 import main.java.JsonSerializer;
-import main.java.writer.JsonWriter;
+import main.java.writer.IJsonWriter;
 
 import java.util.Map;
 import java.util.Set;
@@ -9,7 +9,7 @@ import java.util.Set;
 public class MapMapper extends IJsonMapper {
 
     @Override
-    public void write(Object obj, JsonWriter writer) {
+    public void write(Object obj, IJsonWriter writer) {
         if (obj == null) {
             writer.writeNull();
         } else {

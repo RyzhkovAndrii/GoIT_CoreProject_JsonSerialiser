@@ -1,12 +1,12 @@
 package main.java.mapper;
 
 import main.java.JsonSerializer;
-import main.java.writer.JsonWriter;
+import main.java.writer.IJsonWriter;
 
 public class PrimitiveArrayMapper extends IJsonMapper {
 
     @Override
-    public void write(Object obj, JsonWriter writer) {
+    public void write(Object obj, IJsonWriter writer) {
 
         JsonSerializer jsonSerializer = new JsonSerializer();
         Class elementClass = obj.getClass().getComponentType();

@@ -1,6 +1,7 @@
 package main.java.mapper;
 
 import main.java.JsonSerializer;
+import main.java.writer.IJsonWriter;
 import main.java.writer.JsonWriter;
 
 import java.util.Arrays;
@@ -8,7 +9,7 @@ import java.util.Arrays;
 public class ObjectArrayMapper extends IJsonMapper {
 
     @Override
-    public void write(Object obj, JsonWriter writer) {
+    public void write(Object obj, IJsonWriter writer) {
         JsonSerializer jsonSerializer = new JsonSerializer();
         Class clazz = obj.getClass().getComponentType();
         Object[] array = (Object[]) obj;

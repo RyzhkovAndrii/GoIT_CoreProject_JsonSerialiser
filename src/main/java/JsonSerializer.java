@@ -3,6 +3,7 @@ package main.java;
 import main.java.mapper.IJsonMapper;
 import main.java.mapper.MappersCash;
 import main.java.mapper.POJOMapper;
+import main.java.writer.IJsonWriter;
 import main.java.writer.IndentedJsonWriter;
 import main.java.writer.JsonWriter;
 
@@ -61,12 +62,12 @@ public class JsonSerializer implements IJsonSerializer {
         }
     }
 
-    public void serialize(Object obj, JsonWriter jsonWriter) {
+    public void serialize(Object obj, IJsonWriter jsonWriter) {
         if (obj == null) {
             jsonWriter.writeNull();
         } else {
             IJsonMapper mapper = getMapper(obj.getClass());
-            mapper.write(obj, jsonWriter); // тип параметра jsonWriter нужно заменить с JsonWriter на IJsonWriter !
+            mapper.write(obj, jsonWriter);
         }
         jsonWriter.flush();
     }

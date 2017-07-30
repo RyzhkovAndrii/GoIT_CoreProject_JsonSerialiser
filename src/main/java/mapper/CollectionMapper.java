@@ -1,14 +1,14 @@
 package main.java.mapper;
 
 import main.java.JsonSerializer;
-import main.java.writer.JsonWriter;
+import main.java.writer.IJsonWriter;
 
 import java.util.Collection;
 
 public class CollectionMapper extends IJsonMapper {
 
     @Override
-    public void write(Object obj, JsonWriter jsonWriter) {
+    public void write(Object obj, IJsonWriter jsonWriter) {
         Collection collection = (Collection) obj;
         jsonWriter.writeArrayBegin();
         if (!collection.isEmpty()) {

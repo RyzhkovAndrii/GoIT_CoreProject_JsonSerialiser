@@ -1,9 +1,9 @@
 package main.java.mapper;
 
-import main.java.writer.JsonWriter;
+import main.java.writer.IJsonWriter;
 
 public abstract class IJsonMapper {
 
-    public abstract void write(Object obj, JsonWriter writer);
+    public abstract void write(Object obj, IJsonWriter writer);
 
 }
