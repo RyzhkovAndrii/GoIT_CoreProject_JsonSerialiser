@@ -1,6 +1,5 @@
 package main.java.mapper;
 
-import main.java.JsonSerializer;
 import main.java.annotation.JsonIgnore;
 import main.java.annotation.JsonProperty;
 import main.java.writer.IJsonWriter;

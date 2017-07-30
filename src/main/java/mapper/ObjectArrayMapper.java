@@ -1,6 +1,5 @@
 package main.java.mapper;
 
-import main.java.JsonSerializer;
 import main.java.writer.IJsonWriter;
 
 import java.util.Arrays;

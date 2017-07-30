@@ -1,6 +1,5 @@
 package main.java.mapper;
 
-import main.java.JsonSerializer;
 import main.java.writer.IJsonWriter;
 
 public class PrimitiveArrayMapper extends IJsonMapper {

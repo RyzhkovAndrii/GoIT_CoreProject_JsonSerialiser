@@ -6,11 +6,7 @@ public class StringMapper extends IJsonMapper {
 
     @Override
     public void write(Object obj, IJsonWriter writer) {
-        if (obj == null) {
-            writer.writeNull();
-        } else {
-            writer.writeString((String) obj);
-        }
+        writer.writeString((String) obj);
         writer.flush();
     }
 
