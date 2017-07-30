@@ -53,15 +53,13 @@ public class JsonSerializer implements IJsonSerializer {
         IJsonMapper mapper = mappersCache.getMapper(mapperRequest);
         if (mapper == null) {
             synchronized (this) {
-                IJsonMapper newMapper = new POJOMapper(clazz);
-                mappersCache.putMapper(clazz.getName(), newMapper);
-                newMapper.setJsonSerializer(this);
-                return newMapper;
+                mapper = new POJOMapper(clazz);
+                mappersCache.putMapper(clazz.getName(), mapper);
+                mapper.setJsonSerializer(this);
             }
-        } else {
-            mapper.setJsonSerializer(this);
-            return mapper;
         }
+        mapper.setJsonSerializer(this);
+        return mapper;
     }
 
     public void serialize(Object obj, IJsonWriter jsonWriter) {
