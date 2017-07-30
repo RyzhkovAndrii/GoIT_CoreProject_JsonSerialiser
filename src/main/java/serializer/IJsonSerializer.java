@@ -1,4 +1,4 @@
-package main.java;
+package main.java.serializer;
 
 import java.io.OutputStream;
 import java.io.Writer;

@@ -1,4 +1,4 @@
-package main.java;
+package main.java.serializer;
 
 import main.java.mapper.IJsonMapper;
 import main.java.mapper.MappersCash;
