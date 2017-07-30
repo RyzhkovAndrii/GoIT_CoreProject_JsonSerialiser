@@ -6,10 +6,7 @@ import main.java.writer.IJsonWriter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class POJOMapper extends IJsonMapper {
@@ -24,6 +21,29 @@ public class POJOMapper extends IJsonMapper {
         List<Field> fields = Arrays.stream(clazz.getDeclaredFields())
                 .filter(this::isSerialising)
                 .collect(Collectors.toList());
+        fields = filterFieldListByNameFromAnnotation(fields);
+        return fields;
+    }
+
+    private List<Field> filterTheSameAnnotationName(List<Field> fields) {
+        Set<String> annotationNamesList = new HashSet<>();
+        Iterator<Field> iterator = fields.iterator();
+        while (iterator.hasNext()) {
+            Field field = iterator.next();
+            if (hasJsonProperty(field)) {
+                String annotationName = field.getAnnotation(JsonProperty.class).value();
+                if (annotationNamesList.contains(annotationName)) {
+                    iterator.remove();
+                } else {
+                    annotationNamesList.add(annotationName);
+                }
+            }
+        }
+        return fields;
+    }
+
+    private List<Field> filterFieldListByNameFromAnnotation(List<Field> fields) {
+        fields = filterTheSameAnnotationName(fields);
         Set<String> fieldsNamesFromAnnotations = new HashSet<>();
         for (Field field : fields) {
             if (hasJsonProperty(field)) {
@@ -77,4 +97,5 @@ public class POJOMapper extends IJsonMapper {
         }
         jsonWriter.writeObjectEnd();
     }
+
 }
