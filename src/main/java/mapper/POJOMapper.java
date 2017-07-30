@@ -16,11 +16,9 @@ import java.util.stream.Collectors;
 public class POJOMapper extends IJsonMapper {
 
     private List<Field> fieldsList;
-    private JsonSerializer jsonSerializer;
 
     public POJOMapper(Class clazz) {
         this.fieldsList = getFieldsList(clazz);
-        this.jsonSerializer = new JsonSerializer();
     }
 
     private List<Field> getFieldsList(Class clazz) {

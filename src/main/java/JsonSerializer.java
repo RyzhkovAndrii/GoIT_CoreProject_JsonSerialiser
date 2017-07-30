@@ -55,9 +55,11 @@ public class JsonSerializer implements IJsonSerializer {
             synchronized (this) {
                 IJsonMapper newMapper = new POJOMapper(clazz);
                 mappersCache.putMapper(clazz.getName(), newMapper);
+                newMapper.setJsonSerializer(this);
                 return newMapper;
             }
         } else {
+            mapper.setJsonSerializer(this);
             return mapper;
         }
     }
@@ -102,7 +104,9 @@ public class JsonSerializer implements IJsonSerializer {
 
     @Override
     public void serialize(Object obj, Writer writer) {
-        JsonWriter jsonWriter = isIndent() ? new IndentedJsonWriter(writer, indentSize) : new JsonWriter(writer);
+        JsonWriter jsonWriter = isIndent()
+                ? new IndentedJsonWriter(writer, indentSize)
+                : new JsonWriter(writer);
         serialize(obj, jsonWriter);
     }
 }

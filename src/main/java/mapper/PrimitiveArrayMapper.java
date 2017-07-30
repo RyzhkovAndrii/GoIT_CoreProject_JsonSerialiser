@@ -8,7 +8,6 @@ public class PrimitiveArrayMapper extends IJsonMapper {
     @Override
     public void write(Object obj, IJsonWriter writer) {
 
-        JsonSerializer jsonSerializer = new JsonSerializer();
         Class elementClass = obj.getClass().getComponentType();
         Number[] numbers;
 

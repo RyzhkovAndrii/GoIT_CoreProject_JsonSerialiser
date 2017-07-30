@@ -22,7 +22,6 @@ public class MapMapper extends IJsonMapper {
                 Map.Entry entry = (Map.Entry) mapSet.iterator().next();
                 Class keyClazz = entry.getKey().getClass();
                 Class valueClazz = entry.getValue().getClass();
-                JsonSerializer jsonSerializer = new JsonSerializer();
                 IJsonMapper keyMapper = jsonSerializer.getMapper(keyClazz);
                 IJsonMapper valueMapper = jsonSerializer.getMapper(valueClazz);
 
