@@ -5,10 +5,6 @@ import main.java.writer.JsonWriter;
 
 import java.util.Collection;
 
-/**
- * Created by hot shihov on 11.07.2017.
- */
-
 public class CollectionMapper extends IJsonMapper {
 
     @Override
@@ -24,5 +20,6 @@ public class CollectionMapper extends IJsonMapper {
         }
         jsonWriter.writeArrayEnd();
     }
+
 }
 

@@ -6,20 +6,14 @@ import main.java.writer.JsonWriter;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by hot shihov on 11.07.2017.
- */
-
 public class MapMapper extends IJsonMapper {
-    private Map map;
-    private JsonSerializer jsonSerializer;
 
     @Override
     public void write(Object obj, JsonWriter writer) {
         if (obj == null) {
             writer.writeNull();
         } else {
-            map = (Map) obj;
+            Map map = (Map) obj;
             writer.writeObjectBegin();
             if (map.isEmpty()) {
                 writer.writeObjectEnd();
@@ -28,7 +22,7 @@ public class MapMapper extends IJsonMapper {
                 Map.Entry entry = (Map.Entry) mapSet.iterator().next();
                 Class keyClazz = entry.getKey().getClass();
                 Class valueClazz = entry.getValue().getClass();
-                jsonSerializer = new JsonSerializer();
+                JsonSerializer jsonSerializer = new JsonSerializer();
                 IJsonMapper keyMapper = jsonSerializer.getMapper(keyClazz);
                 IJsonMapper valueMapper = jsonSerializer.getMapper(valueClazz);
 

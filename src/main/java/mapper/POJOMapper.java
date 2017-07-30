@@ -13,10 +13,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Created by hot shihov on 27.07.2017.
- */
-
 public class POJOMapper extends IJsonMapper {
 
     private List<Field> fieldsList;

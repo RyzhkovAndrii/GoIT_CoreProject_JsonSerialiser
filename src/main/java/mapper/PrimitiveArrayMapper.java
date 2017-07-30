@@ -3,10 +3,6 @@ package main.java.mapper;
 import main.java.JsonSerializer;
 import main.java.writer.JsonWriter;
 
-/**
- * Created by Andrii Ryzhkov on 29.07.2017.
- */
-
 public class PrimitiveArrayMapper extends IJsonMapper {
 
     @Override

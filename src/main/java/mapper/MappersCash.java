@@ -3,11 +3,6 @@ package main.java.mapper;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Andrii Ryzhkov on 12.07.2017.
- *
- */
-
 public class MappersCash {
 
     private static volatile MappersCash ourInstance;

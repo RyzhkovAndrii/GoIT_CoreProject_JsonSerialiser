@@ -5,15 +5,10 @@ import main.java.writer.JsonWriter;
 
 import java.util.Arrays;
 
-
-/**
- * Created by hot shihov on 10.07.2017.
- */
 public class ObjectArrayMapper extends IJsonMapper {
 
     @Override
     public void write(Object obj, JsonWriter writer) {
-
         JsonSerializer jsonSerializer = new JsonSerializer();
         Class clazz = obj.getClass().getComponentType();
         Object[] array = (Object[]) obj;

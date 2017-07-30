@@ -3,10 +3,6 @@ package main.java;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Andrii Ryzhkov on 11.07.2017.
- */
-
 public class MainApp {
 
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException, InstantiationException {

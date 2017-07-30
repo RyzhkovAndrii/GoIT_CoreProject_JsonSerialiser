@@ -2,10 +2,6 @@ package main.java.writer;
 
 import java.io.Writer;
 
-/**
- * Created by Andrii Ryzhkov on 10.07.2017.
- */
-
 public class IndentedJsonWriter extends JsonWriter {
 
     private static final int DEFAULT_INDENT_SIZE = 1;

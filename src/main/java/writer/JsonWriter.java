@@ -3,10 +3,6 @@ package main.java.writer;
 import java.io.IOException;
 import java.io.Writer;
 
-/**
- * Created by Andrii Ryzhkov on 07.07.2017.
- */
-
 public class JsonWriter implements IJsonWriter {
 
     private Writer writer;

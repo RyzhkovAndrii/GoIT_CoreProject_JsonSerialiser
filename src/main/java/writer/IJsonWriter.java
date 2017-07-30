@@ -1,9 +1,5 @@
 package main.java.writer;
 
-/**
- * Created by Andrii Ryzhkov on 07.07.2017.
- */
-
 public interface IJsonWriter {
 
     /**
