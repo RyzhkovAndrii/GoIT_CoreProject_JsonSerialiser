@@ -1,6 +1,6 @@
 package main.java.mapper;
 
-import main.java.JsonSerializer;
+import main.java.serializer.JsonSerializer;
 import main.java.writer.IJsonWriter;
 
 public abstract class IJsonMapper {
