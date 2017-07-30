@@ -1,6 +1,5 @@
 package main.java.writer;
 
-import main.java.writer.JsonWriter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,11 +9,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 import static org.junit.Assert.assertEquals;
-
-/**
- * Created by Andrii Ryzhkov on 10.07.2017.
- *
- */
 
 public class JsonWriterTest {
 

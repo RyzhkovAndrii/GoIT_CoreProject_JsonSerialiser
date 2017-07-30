@@ -10,11 +10,6 @@ import java.io.Writer;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Andrii Ryzhkov on 10.07.2017.
- *
- */
-
 public class IndentedJsonWriterTest {
 
     private IndentedJsonWriter jsonWriter;
