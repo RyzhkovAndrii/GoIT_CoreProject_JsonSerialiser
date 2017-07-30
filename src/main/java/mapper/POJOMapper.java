@@ -75,27 +75,29 @@ public class POJOMapper extends IJsonMapper {
     }
 
     public void write(Object obj, IJsonWriter jsonWriter) {
-        jsonWriter.writeObjectBegin();
-        for (Field field : fieldsList) {
-            String name = hasJsonProperty(field)
-                    ? field.getAnnotation(JsonProperty.class).value()
-                    : field.getName();
-            jsonWriter.writeString(name);
-            jsonWriter.writePropertySeparator();
-            try {
-                if (!isPublic(field)) {
-                    field.setAccessible(true);
-                    jsonSerializer.serialize(field.get(obj), jsonWriter);
-                    field.setAccessible(false);
-                } else {
-                    jsonSerializer.serialize(field.get(obj), jsonWriter);
+        if (obj == null) {
+            jsonWriter.writeNull();
+        } else {
+            jsonWriter.writeObjectBegin();
+            for (Field field : fieldsList) {
+                String name = hasJsonProperty(field) ? field.getAnnotation(JsonProperty.class).value() : field.getName();
+                jsonWriter.writeString(name);
+                jsonWriter.writePropertySeparator();
+                try {
+                    if (!isPublic(field)) {
+                        field.setAccessible(true);
+                        jsonSerializer.serialize(field.get(obj), jsonWriter);
+                        field.setAccessible(false);
+                    } else {
+                        jsonSerializer.serialize(field.get(obj), jsonWriter);
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                jsonWriter.writeSeparator();
             }
-            jsonWriter.writeSeparator();
+            jsonWriter.writeObjectEnd();
         }
-        jsonWriter.writeObjectEnd();
     }
 
 }

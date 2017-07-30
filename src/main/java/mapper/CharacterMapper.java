@@ -6,8 +6,12 @@ public class CharacterMapper extends IJsonMapper {
 
     @Override
     public void write(Object obj, IJsonWriter jsonWriter) {
-        Character character = (Character) obj;
-        int intCharacter = (int) character;
-        jsonWriter.writeNumber(intCharacter);
+        if (obj == null) {
+            jsonWriter.writeNull();
+        } else {
+            Character character = (Character) obj;
+            int intCharacter = (int) character;
+            jsonWriter.writeNumber(intCharacter);
+        }
     }
 }

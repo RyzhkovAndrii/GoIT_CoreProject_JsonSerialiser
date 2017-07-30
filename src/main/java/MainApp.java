@@ -1,7 +1,11 @@
 package main.java;
 
+import main.java.serializer.JsonSerializer;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainApp {
 
@@ -22,7 +26,7 @@ public class MainApp {
         collection.add(6);
         collection.add(8);
 
-        /*Map<Float, String> map = new HashMap<>();
+        Map<Float, String> map = new HashMap<>();
         map.put(1.0f, "test1");
         map.put(2.0f, "test2");
         map.put(3.0f, "test3");
@@ -32,7 +36,7 @@ public class MainApp {
         map1.put(1.0f, new HashMap(map));
         map1.put(2.0f, new HashMap(map));
         map1.put(3.0f, new HashMap(map));
-        map1.put(4.0f, new HashMap(map));*/
+        map1.put(4.0f, new HashMap(map));
 
         jsonSerializer.setIndent(true, 3);
 
@@ -40,10 +44,10 @@ public class MainApp {
 
         Double[] array = {1.0, 2.0, 3.0};
         Character number = 1;
-        Float number2 = 2.0f;
+        Float number2 = null;
 
         System.out.println(jsonSerializer.serialize(testClass));
-        System.out.println(jsonSerializer.serialize(number2));
+        System.out.println(jsonSerializer.serialize(map));
 
         /*IJsonMapper mapMapper = new MapMapper();
         mapMapper.write(null, jsonWriter);
