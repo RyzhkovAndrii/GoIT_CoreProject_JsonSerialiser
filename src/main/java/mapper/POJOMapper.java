@@ -14,10 +14,10 @@ public class POJOMapper extends IJsonMapper {
     private List<Field> fieldsList;
 
     public POJOMapper(Class clazz) {
-        this.fieldsList = getFieldsList(clazz);
+        this.fieldsList = getSerialisingFieldsList(clazz);
     }
 
-    private List<Field> getFieldsList(Class clazz) {
+    private List<Field> getSerialisingFieldsList(Class clazz) {
         Set<String> namesSet = new HashSet<>();
         return Arrays.stream(clazz.getDeclaredFields())
                      .filter(this::isSerialising)
@@ -53,7 +53,7 @@ public class POJOMapper extends IJsonMapper {
             jsonWriter.writeNull();
         } else {
             jsonWriter.writeObjectBegin();
-            for (Field field : fieldsList) {
+            fieldsList.forEach(field -> {
                 jsonWriter.writeString(getNameOfFieldWhitAnnotation(field));
                 jsonWriter.writePropertySeparator();
                 try {
@@ -68,7 +68,7 @@ public class POJOMapper extends IJsonMapper {
                     e.printStackTrace();
                 }
                 jsonWriter.writeSeparator();
-            }
+            });
             jsonWriter.writeObjectEnd();
         }
     }
