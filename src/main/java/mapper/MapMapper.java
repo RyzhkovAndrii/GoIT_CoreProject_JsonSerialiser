@@ -3,7 +3,6 @@ package main.java.mapper;
 import main.java.writer.IJsonWriter;
 
 import java.util.Map;
-import java.util.Set;
 
 public class MapMapper extends IJsonMapper {
 
@@ -15,15 +14,15 @@ public class MapMapper extends IJsonMapper {
             Map map = (Map) obj;
             writer.writeArrayBegin();
             if (!map.isEmpty()) {
-                Set<Map.Entry> entrySet = map.entrySet();
-                entrySet.stream().forEach(item -> {
-                    jsonSerializer.serialize(item.getKey(), writer);
+                map.forEach((key, value) -> {
+                    jsonSerializer.serialize(key, writer);
                     writer.writePropertySeparator();
-                    jsonSerializer.serialize(item.getValue(), writer);
+                    jsonSerializer.serialize(value, writer);
                     writer.writeSeparator();
                 });
             }
             writer.writeArrayEnd();
         }
     }
+
 }
