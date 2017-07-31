@@ -4,26 +4,26 @@ import java.io.Writer;
 
 public class IndentedJsonWriter extends JsonWriter {
 
-    private static final int DEFAULT_INDENT_SIZE = 1;
+    private static final int DEFAULT_INDENT_SIZE = 3;
 
     private int indentSize;
-    private int currentLevel;
-    private boolean isInObject;
-    private boolean isInArray;
+    private int objectLevel;
+    private int arrayLevel;
 
     public IndentedJsonWriter(Writer writer, int indentSize) {
         super(writer);
         setIndentSize(indentSize);
-        currentLevel = 0;
+        objectLevel = 0;
+        arrayLevel = 0;
     }
 
     public IndentedJsonWriter(Writer writer) {
         this(writer, DEFAULT_INDENT_SIZE);
     }
 
-    private void writeNewLineWithIndent(int indentLength) {
+    private void writeNewLineWithIndent() {
         writeSymbol('\n');
-        writeSpaces(indentLength);
+        writeSpaces(objectLevel * indentSize);
     }
 
     private void writeSpaces(int spaceCount) {
@@ -32,8 +32,12 @@ public class IndentedJsonWriter extends JsonWriter {
         }
     }
 
-    private int indentLength() {
-        return currentLevel * indentSize;
+    private boolean isInObject() {
+        return objectLevel > 0;
+    }
+
+    private boolean isInArray() {
+        return arrayLevel > 0;
     }
 
     public void setIndentSize(int indentSize) {
@@ -47,27 +51,25 @@ public class IndentedJsonWriter extends JsonWriter {
     @Override
     public void writeObjectBegin() {
         super.writeObjectBegin();
-        currentLevel++;
-        writeNewLineWithIndent(indentLength());
-        isInObject = true;
+        objectLevel++;
+        writeNewLineWithIndent();
     }
 
     @Override
     public void writeObjectEnd() {
-        currentLevel--;
+        objectLevel--;
         while (isLastSymbol(' ') || isLastSymbol('\n')) {
             deleteLastSymbol();
         }
         if (isLastSymbol(',')) deleteLastSymbol();
-        writeNewLineWithIndent(indentLength());
+        writeNewLineWithIndent();
         super.writeObjectEnd();
-        isInObject = false;
     }
 
     @Override
     public void writeArrayBegin() {
         super.writeArrayBegin();
-        isInArray = true;
+        arrayLevel++;
     }
 
     @Override
@@ -76,14 +78,14 @@ public class IndentedJsonWriter extends JsonWriter {
             deleteLastSymbol();
         }
         super.writeArrayEnd();
-        isInArray = false;
+        arrayLevel--;
     }
 
     @Override
     public void writeSeparator() {
         super.writeSeparator();
-        if (isInObject && !isInArray) {
-            writeNewLineWithIndent(indentLength());
+        if (isInObject() && !isInArray()) {
+            writeNewLineWithIndent();
         } else {
             writeSpaces(1);
         }
