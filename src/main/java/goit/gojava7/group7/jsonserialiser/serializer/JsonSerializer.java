@@ -1,11 +1,11 @@
-package main.java.serializer;
+package goit.gojava7.group7.jsonserialiser.serializer;
 
-import main.java.mapper.IJsonMapper;
-import main.java.mapper.MappersCash;
-import main.java.mapper.POJOMapper;
-import main.java.writer.IJsonWriter;
-import main.java.writer.IndentedJsonWriter;
-import main.java.writer.JsonWriter;
+import goit.gojava7.group7.jsonserialiser.mapper.AbstractMapper;
+import goit.gojava7.group7.jsonserialiser.mapper.MappersCash;
+import goit.gojava7.group7.jsonserialiser.mapper.POJOMapper;
+import goit.gojava7.group7.jsonserialiser.writer.IJsonWriter;
+import goit.gojava7.group7.jsonserialiser.writer.IndentedJsonWriter;
+import goit.gojava7.group7.jsonserialiser.writer.JsonWriter;
 
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -48,14 +48,13 @@ public class JsonSerializer implements IJsonSerializer {
         }
     }
 
-    public IJsonMapper getMapper(Class clazz) {
+    public AbstractMapper getMapper(Class clazz) {
         String mapperRequest = getMapperRequest(clazz);
-        IJsonMapper mapper = mappersCache.getMapper(mapperRequest);
+        AbstractMapper mapper = mappersCache.getMapper(mapperRequest);
         if (mapper == null) {
             synchronized (this) {
                 mapper = new POJOMapper(clazz);
                 mappersCache.putMapper(clazz.getName(), mapper);
-                mapper.setJsonSerializer(this);
             }
         }
         mapper.setJsonSerializer(this);
@@ -66,7 +65,7 @@ public class JsonSerializer implements IJsonSerializer {
         if (obj == null) {
             jsonWriter.writeNull();
         } else {
-            IJsonMapper mapper = getMapper(obj.getClass());
+            AbstractMapper mapper = getMapper(obj.getClass());
             mapper.write(obj, jsonWriter);
         }
         jsonWriter.flush();

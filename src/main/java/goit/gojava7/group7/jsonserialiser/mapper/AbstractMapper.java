@@ -1,9 +1,9 @@
-package main.java.mapper;
+package goit.gojava7.group7.jsonserialiser.mapper;
 
-import main.java.serializer.JsonSerializer;
-import main.java.writer.IJsonWriter;
+import goit.gojava7.group7.jsonserialiser.serializer.JsonSerializer;
+import goit.gojava7.group7.jsonserialiser.writer.IJsonWriter;
 
-public abstract class IJsonMapper {
+public abstract class AbstractMapper {
 
     protected JsonSerializer jsonSerializer;
 

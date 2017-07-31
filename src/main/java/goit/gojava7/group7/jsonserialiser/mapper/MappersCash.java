@@ -1,4 +1,4 @@
-package main.java.mapper;
+package goit.gojava7.group7.jsonserialiser.mapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 public class MappersCash {
 
     private static volatile MappersCash ourInstance;
-    private Map<String, IJsonMapper> cash;
+    private Map<String, AbstractMapper> cash;
 
     public static final String STRING_MAPPER_NAME = "stringMapper";
     public static final String NUMBER_MAPPER_NAME = "numberMapper";
@@ -46,11 +46,11 @@ public class MappersCash {
         return localInstance;
     }
 
-    public void putMapper(String mapperName, IJsonMapper mapper) {
+    public void putMapper(String mapperName, AbstractMapper mapper) {
         cash.put(mapperName, mapper);
     }
 
-    public IJsonMapper getMapper(String mapperName) {
+    public AbstractMapper getMapper(String mapperName) {
         return cash.get(mapperName);
     }
 

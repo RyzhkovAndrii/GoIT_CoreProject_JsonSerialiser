@@ -1,4 +1,4 @@
-package main.java.writer;
+package goit.gojava7.group7.jsonserialiser.writer;
 
 import org.junit.After;
 import org.junit.Before;

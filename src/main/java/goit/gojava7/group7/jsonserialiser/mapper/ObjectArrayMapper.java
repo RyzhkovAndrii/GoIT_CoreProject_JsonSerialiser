@@ -1,10 +1,10 @@
-package main.java.mapper;
+package goit.gojava7.group7.jsonserialiser.mapper;
 
-import main.java.writer.IJsonWriter;
+import goit.gojava7.group7.jsonserialiser.writer.IJsonWriter;
 
 import java.util.Arrays;
 
-public class ObjectArrayMapper extends IJsonMapper {
+public class ObjectArrayMapper extends AbstractMapper {
 
     @Override
     public void write(Object obj, IJsonWriter writer) {
@@ -13,7 +13,7 @@ public class ObjectArrayMapper extends IJsonMapper {
         } else {
             Class clazz = obj.getClass().getComponentType();
             Object[] array = (Object[]) obj;
-            IJsonMapper elementMapper = jsonSerializer.getMapper(clazz);
+            AbstractMapper elementMapper = jsonSerializer.getMapper(clazz);
             writer.writeArrayBegin();
             Arrays.stream(array).forEach((element) -> {
                 elementMapper.write(element, writer);

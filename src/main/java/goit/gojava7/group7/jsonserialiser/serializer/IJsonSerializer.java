@@ -1,4 +1,4 @@
-package main.java.serializer;
+package goit.gojava7.group7.jsonserialiser.serializer;
 
 import java.io.OutputStream;
 import java.io.Writer;

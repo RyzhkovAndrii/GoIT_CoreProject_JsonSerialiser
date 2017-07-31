@@ -1,8 +1,8 @@
-package main.java.mapper;
+package goit.gojava7.group7.jsonserialiser.mapper;
 
-import main.java.writer.IJsonWriter;
+import goit.gojava7.group7.jsonserialiser.writer.IJsonWriter;
 
-public class NumberMapper extends IJsonMapper {
+public class NumberMapper extends AbstractMapper {
 
     @Override
     public void write(Object obj, IJsonWriter writer) {

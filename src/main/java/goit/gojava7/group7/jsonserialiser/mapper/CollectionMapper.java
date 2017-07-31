@@ -1,10 +1,10 @@
-package main.java.mapper;
+package goit.gojava7.group7.jsonserialiser.mapper;
 
-import main.java.writer.IJsonWriter;
+import goit.gojava7.group7.jsonserialiser.writer.IJsonWriter;
 
 import java.util.Collection;
 
-public class CollectionMapper extends IJsonMapper {
+public class CollectionMapper extends AbstractMapper {
 
     @Override
     public void write(Object obj, IJsonWriter jsonWriter) {

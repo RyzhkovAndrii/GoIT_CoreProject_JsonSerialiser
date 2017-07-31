@@ -1,15 +1,18 @@
-package main.java.mapper;
+package goit.gojava7.group7.jsonserialiser.mapper;
 
-import main.java.annotation.JsonIgnore;
-import main.java.annotation.JsonProperty;
-import main.java.writer.IJsonWriter;
+import goit.gojava7.group7.jsonserialiser.annotation.JsonIgnore;
+import goit.gojava7.group7.jsonserialiser.annotation.JsonProperty;
+import goit.gojava7.group7.jsonserialiser.writer.IJsonWriter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-public class POJOMapper extends IJsonMapper {
+public class POJOMapper extends AbstractMapper {
 
     private List<Field> fieldsList;
 
