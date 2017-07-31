@@ -48,14 +48,12 @@ public class JsonSerializer implements IJsonSerializer {
         }
     }
 
-    public AbstractMapper getMapper(Class clazz) {
+    public AbstractMapper getMapper(Class clazz) { //зачем делать потокобезопасным???
         String mapperRequest = getMapperRequest(clazz);
         AbstractMapper mapper = mappersCache.getMapper(mapperRequest);
         if (mapper == null) {
-            synchronized (this) {
-                mapper = new POJOMapper(clazz);
-                mappersCache.putMapper(clazz.getName(), mapper);
-            }
+            mapper = new POJOMapper(clazz);
+            mappersCache.putMapper(clazz.getName(), mapper);
         }
         mapper.setJsonSerializer(this);
         return mapper;
