@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class MappersCash {
 
-    private static volatile MappersCash ourInstance;
+    private static MappersCash instanceMapperCash = new MappersCash();
     private Map<String, AbstractMapper> cash;
 
     public static final String STRING_MAPPER_NAME = "stringMapper";
@@ -34,16 +34,7 @@ public class MappersCash {
     }
 
     public static MappersCash getInstance() {
-        MappersCash localInstance = ourInstance;
-        if (localInstance == null) {
-            synchronized (MappersCash.class) {
-                localInstance = ourInstance;
-                if (localInstance == null) {
-                    ourInstance = localInstance = new MappersCash();
-                }
-            }
-        }
-        return localInstance;
+        return instanceMapperCash;
     }
 
     public void putMapper(String mapperName, AbstractMapper mapper) {
