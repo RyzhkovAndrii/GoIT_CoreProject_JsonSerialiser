@@ -21,14 +21,14 @@ public class POJOMapper extends IJsonMapper {
         Set<String> namesSet = new HashSet<>();
         return Arrays.stream(clazz.getDeclaredFields())
                      .filter(this::isSerialising)
-                     .filter(field -> namesSet.add((hasJsonProperty(field))
-                             ? getAnnotationName(field)
-                             : field.getName()))
+                     .filter(field -> namesSet.add(getFieldWhitAnnotationName(field)))
                      .collect(Collectors.toList());
     }
 
-    private String getAnnotationName(Field field) {
-        return field.getAnnotation(JsonProperty.class).name();
+    private String getFieldWhitAnnotationName(Field field) {
+        return hasJsonProperty(field) && !field.getAnnotation(JsonProperty.class).name().equals("")
+                ? field.getAnnotation(JsonProperty.class).name()
+                : field.getName();
     }
 
     private boolean isPublic(Field field) {
@@ -54,10 +54,7 @@ public class POJOMapper extends IJsonMapper {
         } else {
             jsonWriter.writeObjectBegin();
             for (Field field : fieldsList) {
-                String name = hasJsonProperty(field)
-                        ? getAnnotationName(field)
-                        : field.getName();
-                jsonWriter.writeString(name);
+                jsonWriter.writeString(getFieldWhitAnnotationName(field));
                 jsonWriter.writePropertySeparator();
                 try {
                     if (!isPublic(field)) {
