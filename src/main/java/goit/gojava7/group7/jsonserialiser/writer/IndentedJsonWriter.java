@@ -93,7 +93,6 @@ public class IndentedJsonWriter extends JsonWriter {
 
     @Override
     public void writePropertySeparator() {
-        writeSpaces(1);
         super.writePropertySeparator();
         writeSpaces(1);
     }
