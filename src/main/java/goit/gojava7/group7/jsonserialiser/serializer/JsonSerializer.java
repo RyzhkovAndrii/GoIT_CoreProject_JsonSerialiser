@@ -17,7 +17,7 @@ public class JsonSerializer implements IJsonSerializer {
 
     private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
-    private MappersCash mappersCache;
+    private volatile MappersCash mappersCache;
     private boolean indent;
     private int indentSize;
 
@@ -48,12 +48,17 @@ public class JsonSerializer implements IJsonSerializer {
         }
     }
 
-    public AbstractMapper getMapper(Class clazz) { //зачем делать потокобезопасным???
+    public AbstractMapper getMapper(Class clazz) {
         String mapperRequest = getMapperRequest(clazz);
         AbstractMapper mapper = mappersCache.getMapper(mapperRequest);
         if (mapper == null) {
-            mapper = new POJOMapper(clazz);
-            mappersCache.putMapper(clazz.getName(), mapper);
+            synchronized (clazz.getName()) {
+                mapper = mappersCache.getMapper(mapperRequest);
+                if (mapper == null) {
+                    mapper = new POJOMapper(clazz);
+                    mappersCache.putMapper(clazz.getName(), mapper);
+                }
+            }
         }
         mapper.setJsonSerializer(this);
         return mapper;
