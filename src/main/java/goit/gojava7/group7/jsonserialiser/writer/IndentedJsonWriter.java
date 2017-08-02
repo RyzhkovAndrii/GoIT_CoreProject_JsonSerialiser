@@ -23,7 +23,7 @@ public class IndentedJsonWriter extends JsonWriter {
 
     private void writeNewLineWithIndent() {
         writeSymbol('\n');
-        writeSpaces(objectLevel * indentSize);
+        writeSpaces((objectLevel + arrayLevel) * indentSize);
     }
 
     private void writeSpaces(int spaceCount) {

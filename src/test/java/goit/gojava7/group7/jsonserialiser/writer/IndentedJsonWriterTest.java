@@ -91,10 +91,10 @@ public class IndentedJsonWriterTest {
         jsonWriter.flush();
         String expectedString = "{\n"
                 + "  \"testArray\" : [{\n"
-                + "    \"testString1\", \"testString2\"\n"
-                + "  }, {\n"
-                + "    \"testString3\", \"testString4\"\n"
-                + "  }]\n"
+                + "      \"testString1\", \"testString2\"\n"
+                + "    }, {\n"
+                + "      \"testString3\", \"testString4\"\n"
+                + "    }]\n"
                 + "}";
         assertEquals(expectedString, stringWriter.toString());
     }
