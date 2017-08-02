@@ -64,7 +64,7 @@ public class JsonWriterTest {
     @Test
     public void writeStringWithDoubleQuotes() throws IOException {
         String testedString = "\"this is test string with double quotes (\")\"";
-        String expectedString = "\"\\\"this is test string with double quotes (\")\\\"\"";
+        String expectedString = "\"\\\"this is test string with double quotes (\\\")\\\"\"";
         jsonWriter.writeString(testedString);
         jsonWriter.flush();
         assertEquals(expectedString, stringWriter.toString());

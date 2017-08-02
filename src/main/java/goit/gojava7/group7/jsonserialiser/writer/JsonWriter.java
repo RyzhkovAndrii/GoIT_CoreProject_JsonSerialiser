@@ -5,6 +5,9 @@ import java.io.Writer;
 
 public class JsonWriter implements IJsonWriter {
 
+    private static String OLD_SYMBOLS[] = {"\\", "\"", "\t", "\b", "\n", "\r", "\f"};
+    private static String NEW_SYMBOLS[] = {"\\\\", "\\\"", "\\t", "\\b", "\\n", "\\r", "\\f"};
+
     private Writer writer;
     private StringBuilder buffer;
 
@@ -13,12 +16,9 @@ public class JsonWriter implements IJsonWriter {
         buffer = new StringBuilder();
     }
 
-    private String escapeFirstAndLastDoubleQuotes(String string) {
-        if (string.startsWith("\"")) {
-            string = "\\" + string;
-        }
-        if (string.endsWith("\"")) {
-            string = string.substring(0, string.length() - 1) + "\\\"";
+    private String escapeSymbols(String string) {
+        for (int index = 0; index < OLD_SYMBOLS.length; index++) {
+            string = string.replace(OLD_SYMBOLS[index], NEW_SYMBOLS[index]);
         }
         return string;
     }
@@ -67,7 +67,7 @@ public class JsonWriter implements IJsonWriter {
             throw new NullPointerException();
         }
         writeSymbol('"');
-        string = escapeFirstAndLastDoubleQuotes(string);
+        string = escapeSymbols(string);
         buffer.append(string);
         writeSymbol('"');
     }
@@ -107,6 +107,7 @@ public class JsonWriter implements IJsonWriter {
     public void flush() {
         try {
             writer.write(buffer.toString());
+            writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
