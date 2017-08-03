@@ -4,8 +4,6 @@ import goit.gojava7.group7.jsonserialiser.serializer.JsonSerializer;
 
 public class JsonRunning {
 
-    // данные для тестов взяты с http://www.oracle.com/technetwork/articles/java/json-1973242.html
-
     public static void main(String[] args) {
 
         Address address = new Address("21\\2nd Street", "New York (\"NY\")", null, 10021);
