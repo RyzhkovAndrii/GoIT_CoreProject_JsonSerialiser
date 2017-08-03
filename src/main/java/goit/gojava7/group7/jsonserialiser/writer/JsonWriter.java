@@ -5,8 +5,8 @@ import java.io.Writer;
 
 public class JsonWriter implements IJsonWriter {
 
-    private static String OLD_SYMBOLS[] = {"\\", "\"", "\t", "\b", "\n", "\r", "\f"};
-    private static String NEW_SYMBOLS[] = {"\\\\", "\\\"", "\\t", "\\b", "\\n", "\\r", "\\f"};
+    private static String OLD_SYMBOLS[] = {"\\", "\"", "\'", "\t", "\b", "\n", "\r", "\f"};
+    private static String NEW_SYMBOLS[] = {"\\\\", "\\\"", "\\\'", "\\t", "\\b", "\\n", "\\r", "\\f"};
 
     private Writer writer;
     private StringBuilder buffer;
