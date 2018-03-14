@@ -94,7 +94,7 @@ public class POJOMapperTest {
         mapper.setJsonSerializer(jsonSerializer);
         mapper.write(testClass, jsonWriter);
         jsonWriter.flush();
-        assertEquals("{\"privateField\":100,\"transientField\":100}", writer.toString());
+        assertEquals("{\"privateField\":100,\"transientField\":-100}", writer.toString());
     }
 
     @Test

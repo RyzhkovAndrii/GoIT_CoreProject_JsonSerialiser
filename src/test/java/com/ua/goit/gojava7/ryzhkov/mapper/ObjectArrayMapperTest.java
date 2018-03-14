@@ -17,6 +17,7 @@ public class ObjectArrayMapperTest {
     private IJsonWriter jsonWriter;
     private StringWriter writer;
     private Object[] objectArray;
+    private String[] stringArray;
 
     @Before
     public void initTest() {
@@ -59,16 +60,15 @@ public class ObjectArrayMapperTest {
 
     @Test
     public void writeObjectArrayEmpty() {
-        objectArray = new Object[0];
-        mapper.write(objectArray, jsonWriter);
+        stringArray = new String[0];
+        mapper.write(stringArray, jsonWriter);
         jsonWriter.flush();
         assertEquals("[]", writer.toString());
     }
 
     @Test
     public void writeObjectArrayNull() {
-        objectArray = null;
-        mapper.write(objectArray, jsonWriter);
+        mapper.write(null, jsonWriter);
         jsonWriter.flush();
         assertEquals("null", writer.toString());
     }
