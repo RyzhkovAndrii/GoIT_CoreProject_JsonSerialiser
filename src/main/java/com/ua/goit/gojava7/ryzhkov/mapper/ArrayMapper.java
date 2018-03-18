@@ -13,7 +13,7 @@ public class ArrayMapper extends AbstractMapper {
         int length = getLength(obj);
         for (int i = 0; i < length; i++) {
             jsonSerializer.serialize(get(obj, i), writer);
-            if (i != length - 1) writer.writeSeparator();
+            writer.writeSeparator();
         }
         writer.writeArrayEnd();
     }
