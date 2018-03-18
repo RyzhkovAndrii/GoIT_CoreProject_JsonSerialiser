@@ -34,9 +34,7 @@ public class JsonSerializer implements IJsonSerializer {
         } else if (Boolean.class.isAssignableFrom(clazz)) {
             return MappersCash.BOOLEAN_MAPPER_NAME;
         } else if (clazz.isArray()) {
-            return clazz.getComponentType().isPrimitive()
-                    ? MappersCash.PRIMITIVE_ARRAY_MAPPER_NAME
-                    : MappersCash.OBJECT_ARRAY_MAPPER_NAME;
+            return MappersCash.ARRAY_MAPPER_NAME;
         } else if (java.util.Collection.class.isAssignableFrom(clazz)) {
             return MappersCash.COLLECTION_MAPPER_NAME;
         } else if (java.util.Map.class.isAssignableFrom(clazz)) {
