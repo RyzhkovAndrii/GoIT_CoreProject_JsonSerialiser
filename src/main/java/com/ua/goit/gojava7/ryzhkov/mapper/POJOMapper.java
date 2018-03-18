@@ -23,9 +23,9 @@ public class POJOMapper extends AbstractMapper {
     private List<Field> getSerialisingFieldsList(Class clazz) {
         Set<String> namesSet = new HashSet<>();
         return Arrays.stream(clazz.getDeclaredFields())
-                     .filter(this::isSerialising)
-                     .filter(field -> namesSet.add(getNameOfFieldWhitAnnotation(field)))
-                     .collect(Collectors.toList());
+                .filter(this::isSerialising)
+                .filter(field -> namesSet.add(getNameOfFieldWhitAnnotation(field)))
+                .collect(Collectors.toList());
     }
 
     private String getNameOfFieldWhitAnnotation(Field field) {
@@ -52,28 +52,24 @@ public class POJOMapper extends AbstractMapper {
     }
 
     public void write(Object obj, IJsonWriter jsonWriter) {
-        if (obj == null) {
-            jsonWriter.writeNull();
-        } else {
-            jsonWriter.writeObjectBegin();
-            fieldsList.forEach(field -> {
-                jsonWriter.writeString(getNameOfFieldWhitAnnotation(field));
-                jsonWriter.writePropertySeparator();
-                try {
-                    if (!isPublic(field)) {
-                        field.setAccessible(true);
-                        jsonSerializer.serialize(field.get(obj), jsonWriter);
-                        field.setAccessible(false);
-                    } else {
-                        jsonSerializer.serialize(field.get(obj), jsonWriter);
-                    }
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+        jsonWriter.writeObjectBegin();
+        fieldsList.forEach(field -> {
+            jsonWriter.writeString(getNameOfFieldWhitAnnotation(field));
+            jsonWriter.writePropertySeparator();
+            try {
+                if (!isPublic(field)) {
+                    field.setAccessible(true);
+                    jsonSerializer.serialize(field.get(obj), jsonWriter);
+                    field.setAccessible(false);
+                } else {
+                    jsonSerializer.serialize(field.get(obj), jsonWriter);
                 }
-                jsonWriter.writeSeparator();
-            });
-            jsonWriter.writeObjectEnd();
-        }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            jsonWriter.writeSeparator();
+        });
+        jsonWriter.writeObjectEnd();
     }
 
 }

@@ -62,12 +62,9 @@ public class CollectionMapperTest {
         assertEquals("[]", writer.toString());
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void writeCollectionNull() {
-        collection = null;
-        mapper.write(collection, jsonWriter);
-        jsonWriter.flush();
-        assertEquals("null", writer.toString());
+        mapper.write(null, jsonWriter);
     }
 
 }

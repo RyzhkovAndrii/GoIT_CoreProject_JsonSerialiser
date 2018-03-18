@@ -81,12 +81,9 @@ public class CharacterMapperTest {
         assertEquals("97", writer.toString());
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void writeCharacterNull() {
-        character = null;
-        mapper.write(character, jsonWriter);
-        jsonWriter.flush();
-        assertEquals("null", writer.toString());
+        mapper.write(null, jsonWriter);
     }
 
     @Test

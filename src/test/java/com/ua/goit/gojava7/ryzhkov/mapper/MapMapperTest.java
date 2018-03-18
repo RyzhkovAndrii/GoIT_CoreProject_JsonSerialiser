@@ -72,12 +72,9 @@ public class MapMapperTest {
         assertEquals("[]", writer.toString());
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void writeMapNull() {
-        map = null;
-        mapper.write(map, jsonWriter);
-        jsonWriter.flush();
-        assertEquals("null", writer.toString());
+        mapper.write(null, jsonWriter);
     }
 
 }

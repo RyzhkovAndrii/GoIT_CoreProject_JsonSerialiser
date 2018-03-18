@@ -6,10 +6,6 @@ public class BooleanMapper extends AbstractMapper {
 
     @Override
     public void write(Object obj, IJsonWriter writer) {
-        if (obj == null) {
-            writer.writeNull();
-        } else {
-            writer.writeBoolean((Boolean) obj);
-        }
+        writer.writeBoolean((Boolean) obj);
     }
 }

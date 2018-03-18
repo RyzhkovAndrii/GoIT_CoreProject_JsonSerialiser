@@ -6,12 +6,8 @@ public class CharacterMapper extends AbstractMapper {
 
     @Override
     public void write(Object obj, IJsonWriter jsonWriter) {
-        if (obj == null) {
-            jsonWriter.writeNull();
-        } else {
-            Character character = (Character) obj;
-            int intCharacter = (int) character;
-            jsonWriter.writeNumber(intCharacter);
-        }
+        Character character = (Character) obj;
+        int intCharacter = (int) character;
+        jsonWriter.writeNumber(intCharacter);
     }
 }

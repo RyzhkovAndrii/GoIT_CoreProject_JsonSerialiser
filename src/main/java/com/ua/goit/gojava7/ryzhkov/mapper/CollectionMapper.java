@@ -8,19 +8,15 @@ public class CollectionMapper extends AbstractMapper {
 
     @Override
     public void write(Object obj, IJsonWriter jsonWriter) {
-        if (obj == null) {
-            jsonWriter.writeNull();
-        } else {
-            Collection collection = (Collection) obj;
-            jsonWriter.writeArrayBegin();
-            if (!collection.isEmpty()) {
-                collection.forEach((item) -> {
-                    jsonSerializer.serialize(item, jsonWriter);
-                    jsonWriter.writeSeparator();
-                });
-            }
-            jsonWriter.writeArrayEnd();
+        Collection collection = (Collection) obj;
+        jsonWriter.writeArrayBegin();
+        if (!collection.isEmpty()) {
+            collection.forEach((item) -> {
+                jsonSerializer.serialize(item, jsonWriter);
+                jsonWriter.writeSeparator();
+            });
         }
+        jsonWriter.writeArrayEnd();
     }
 
 }
