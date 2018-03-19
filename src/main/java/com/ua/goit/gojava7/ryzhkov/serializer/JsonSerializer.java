@@ -35,8 +35,6 @@ public class JsonSerializer implements IJsonSerializer {
                 mapper = mappersCache.getMapper(Object[].class);
             } else if (Number.class.isAssignableFrom(clazz)) {
                 mapper = mappersCache.getMapper(Number.class);
-            } else if (Boolean.class.isAssignableFrom(clazz)) {
-                mapper = mappersCache.getMapper(Boolean.class);
             } else if (Collection.class.isAssignableFrom(clazz)) {
                 mapper = mappersCache.getMapper(Collection.class);
             } else if (Map.class.isAssignableFrom(clazz)) {
