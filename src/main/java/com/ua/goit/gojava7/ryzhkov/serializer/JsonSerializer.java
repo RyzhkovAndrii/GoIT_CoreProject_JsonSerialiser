@@ -12,6 +12,8 @@ import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.Map;
 
 public class JsonSerializer implements IJsonSerializer {
 
@@ -26,40 +28,35 @@ public class JsonSerializer implements IJsonSerializer {
         mappersCache = MappersCash.getInstance();
     }
 
-    private String getMapperRequest(Class clazz) {
-        if (Number.class.isAssignableFrom(clazz)) {
-            return MappersCash.NUMBER_MAPPER_NAME;
-        } else if (clazz.equals(String.class)) {
-            return MappersCash.STRING_MAPPER_NAME;
-        } else if (Boolean.class.isAssignableFrom(clazz)) {
-            return MappersCash.BOOLEAN_MAPPER_NAME;
-        } else if (clazz.isArray()) {
-            return MappersCash.ARRAY_MAPPER_NAME;
-        } else if (java.util.Collection.class.isAssignableFrom(clazz)) {
-            return MappersCash.COLLECTION_MAPPER_NAME;
-        } else if (java.util.Map.class.isAssignableFrom(clazz)) {
-            return MappersCash.MAP_MAPPER_NAME;
-        } else if (clazz.equals(Character.class)) {
-            return MappersCash.CHARACTER_MAPPER_NAME;
-        } else {
-            return clazz.getName();
-        }
-    }
-
-    public AbstractMapper getMapper(Class clazz) {
-        String mapperRequest = getMapperRequest(clazz);
-        AbstractMapper mapper = mappersCache.getMapper(mapperRequest);
+    private AbstractMapper getMapper(Class clazz) {
+        AbstractMapper mapper = mappersCache.getMapper(clazz);
         if (mapper == null) {
-            synchronized (clazz.getName()) {
-                mapper = mappersCache.getMapper(mapperRequest);
-                if (mapper == null) {
-                    mapper = new POJOMapper(clazz);
-                    mappersCache.putMapper(clazz.getName(), mapper);
-                }
+            if (clazz.isArray()) {
+                mapper = mappersCache.getMapper(Object[].class);
+            } else if (Number.class.isAssignableFrom(clazz)) {
+                mapper = mappersCache.getMapper(Number.class);
+            } else if (Boolean.class.isAssignableFrom(clazz)) {
+                mapper = mappersCache.getMapper(Boolean.class);
+            } else if (Collection.class.isAssignableFrom(clazz)) {
+                mapper = mappersCache.getMapper(Collection.class);
+            } else if (Map.class.isAssignableFrom(clazz)) {
+                mapper = mappersCache.getMapper(Map.class);
+            } else {
+                mapper = getNewPOJOMapper(clazz);
             }
         }
-        mapper.setJsonSerializer(this);
         return mapper;
+    }
+
+    private AbstractMapper getNewPOJOMapper(Class clazz) {
+        synchronized (clazz.getName()) {
+            AbstractMapper mapper = mappersCache.getMapper(clazz);
+            if (mapper == null) {
+                mapper = new POJOMapper(clazz);
+                mappersCache.putMapper(clazz, mapper);
+            }
+            return mapper;
+        }
     }
 
     public void serialize(Object obj, IJsonWriter jsonWriter) {
@@ -67,6 +64,7 @@ public class JsonSerializer implements IJsonSerializer {
             jsonWriter.writeNull();
         } else {
             AbstractMapper mapper = getMapper(obj.getClass());
+            mapper.setJsonSerializer(this);
             mapper.write(obj, jsonWriter);
         }
         jsonWriter.flush();
